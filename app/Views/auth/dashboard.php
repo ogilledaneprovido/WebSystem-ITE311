@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About</title>
+    <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -14,12 +14,12 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link active text-white fw-bold" href="about">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="about">About</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="contact">Contact</a></li>
       </ul>
       <ul class="navbar-nav">
         <?php if (session()->get('isLoggedIn')): ?>
-          <li class="nav-item"><a class="nav-link text-white" href="dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link active text-white fw-bold" href="dashboard">Dashboard</a></li>
           <li class="nav-item"><span class="nav-link text-white">Hello, <?= session()->get('name') ?></span></li>
           <li class="nav-item"><a class="nav-link text-white" href="logout">Logout</a></li>
         <?php else: ?>
@@ -34,12 +34,11 @@
   </div>
 </nav>
 
-<!-- Main Content -->
-<div class="container mt-5 text-center">
-    <h1 class="text-primary">About Page</h1>
-    <p class="text-muted">This page contains information about the project.</p>
+<div class="container mt-5">
+    <h2>Welcome to the Dashboard</h2>
+    <p>Hello, <?= session()->get('name'); ?>! You are logged in as <strong><?= session()->get('role'); ?></strong>.</p>
+    <a href="logout" class="btn btn-danger">Logout</a>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

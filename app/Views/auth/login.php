@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About</title>
+    <title>Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link active text-white fw-bold" href="about">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="about">About</a></li>
         <li class="nav-item"><a class="nav-link text-white" href="contact">Contact</a></li>
       </ul>
       <ul class="navbar-nav">
@@ -23,7 +23,7 @@
           <li class="nav-item"><span class="nav-link text-white">Hello, <?= session()->get('name') ?></span></li>
           <li class="nav-item"><a class="nav-link text-white" href="logout">Logout</a></li>
         <?php else: ?>
-          <li class="nav-item"><a class="nav-link text-white" href="login">Login</a></li>
+          <li class="nav-item"><a class="nav-link active text-white fw-bold" href="login">Login</a></li>
           <li class="nav-item"><a class="nav-link text-white" href="register">Register</a></li>
         <?php endif; ?>
       </ul>
@@ -34,12 +34,29 @@
   </div>
 </nav>
 
-<!-- Main Content -->
-<div class="container mt-5 text-center">
-    <h1 class="text-primary">About Page</h1>
-    <p class="text-muted">This page contains information about the project.</p>
-</div>
+<div class="container mt-5">
+    <h2>Login</h2>
+    <?php if(session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+    <?php endif; ?>
+    <?php if(session()->getFlashdata('success')): ?>
+        <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+    <?php endif; ?>
 
+    <form action="login" method="post">
+        <?= csrf_field() ?>
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-success">Login</button>
+        <a href="register" class="btn btn-link">Don't have an account? Register</a>
+    </form>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
