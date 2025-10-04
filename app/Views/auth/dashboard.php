@@ -10,21 +10,17 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-white" href="/">ITE311</a>
+    <a class="navbar-brand fw-bold text-white" href="/ITE311-PROVIDO/">ITE311</a>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="about">About</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="contact">Contact</a></li>
-      </ul>
+      <!-- Home, Contact, and About navigation removed -->
       <ul class="navbar-nav">
         <?php if (session()->get('isLoggedIn')): ?>
-          <li class="nav-item"><a class="nav-link active text-white fw-bold" href="dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link active text-white fw-bold" href="/ITE311-PROVIDO/dashboard">Dashboard</a></li>
           <li class="nav-item"><span class="nav-link text-white">Hello, <?= session()->get('name') ?></span></li>
-          <li class="nav-item"><a class="nav-link text-white" href="logout">Logout</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="/ITE311-PROVIDO/logout">Logout</a></li>
         <?php else: ?>
-          <li class="nav-item"><a class="nav-link text-white" href="login">Login</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="register">Register</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="/ITE311-PROVIDO/login">Login</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="/ITE311-PROVIDO/register">Register</a></li>
         <?php endif; ?>
       </ul>
     </div>
@@ -35,9 +31,14 @@
 </nav>
 
 <div class="container mt-5">
+    <?php if(session()->getFlashdata('success')): ?>
+        <div class="alert alert-success"><?= session()->getFlashdata('success') ?></div>
+    <?php endif; ?>
+    <?php if(session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger"><?= session()->getFlashdata('error') ?></div>
+    <?php endif; ?>
+    
     <h2>Welcome to the Dashboard</h2>
-    <p>Hello, <?= session()->get('name'); ?>! You are logged in as <strong><?= session()->get('role'); ?></strong>.</p>
-    <a href="logout" class="btn btn-danger">Logout</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

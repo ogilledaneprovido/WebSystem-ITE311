@@ -10,23 +10,14 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold text-white" href="/">ITE311</a>
+    <a class="navbar-brand fw-bold text-white" href="/ITE311-PROVIDO/">ITE311</a>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link text-white" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link active text-white fw-bold" href="about">About</a></li>
-        <li class="nav-item"><a class="nav-link text-white" href="contact">Contact</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="/ITE311-PROVIDO/">Home</a></li>
+        <li class="nav-item"><a class="nav-link active text-white fw-bold" href="/ITE311-PROVIDO/about">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="/ITE311-PROVIDO/contact">Contact</a></li>
       </ul>
-      <ul class="navbar-nav">
-        <?php if (session()->get('isLoggedIn')): ?>
-          <li class="nav-item"><a class="nav-link text-white" href="dashboard">Dashboard</a></li>
-          <li class="nav-item"><span class="nav-link text-white">Hello, <?= session()->get('name') ?></span></li>
-          <li class="nav-item"><a class="nav-link text-white" href="logout">Logout</a></li>
-        <?php else: ?>
-          <li class="nav-item"><a class="nav-link text-white" href="login">Login</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="register">Register</a></li>
-        <?php endif; ?>
-      </ul>
+      <!-- Authentication buttons removed -->
     </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>

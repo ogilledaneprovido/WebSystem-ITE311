@@ -35,7 +35,7 @@ class Auth extends BaseController
                     if ($model->save($data)) {
                         log_message('debug', 'User saved successfully');
                         $session->setFlashdata('success', 'Registration successful. Please login.');
-                        return redirect()->to('login');
+                        return redirect()->to(base_url('login'));
                     } else {
                         log_message('error', 'Model save failed. Errors: ' . json_encode($model->errors()));
                         $session->setFlashdata('error', 'Registration failed: ' . implode(', ', $model->errors()));
@@ -78,7 +78,7 @@ class Auth extends BaseController
                     ]);
 
                     $session->setFlashdata('success', 'Welcome, ' . $user['name']);
-                    return redirect()->to('dashboard');
+                    return redirect()->to(base_url('dashboard'));
                 } else {
                     $session->setFlashdata('error', 'Invalid email or password');
                 }
@@ -91,13 +91,13 @@ class Auth extends BaseController
     public function logout()
     {
         session()->destroy();
-        return redirect()->to('login');
+        return redirect()->to(base_url('login'));
     }
 
     public function dashboard()
     {
         if (! session()->get('isLoggedIn')) {
-            return redirect()->to('login');
+            return redirect()->to(base_url('login'));
         }
 
         echo view('auth/dashboard');
