@@ -95,11 +95,39 @@ class Auth extends BaseController
     }
 
     public function dashboard()
-    {
-        if (! session()->get('isLoggedIn')) {
-            return redirect()->to(base_url('login'));
-        }
-
-        echo view('auth/dashboard');
+{
+    // ✅ 1. Check if user is logged in
+    if (!session()->get('isLoggedIn')) {
+        return redirect()->to(base_url('login'));
     }
+
+    // ✅ 2. Get user info from session
+    $name = session()->get('name');
+    $role = session()->get('role');
+
+    // ✅ 3. Prepare role-specific data
+    $userModel = new UserModel();
+    $data = [
+        'name' => $name,
+        'role' => $role,
+        'totalUsers' => 0,
+        'extraInfo' => ''
+    ];
+
+    // Simple example: you can adjust this later for real data
+    if ($role == 'admin') {
+        $data['totalUsers'] = count($userModel->findAll());
+        $data['extraInfo'] = 'You have access to manage all users.';
+    } elseif ($role == 'teacher') {
+        $data['extraInfo'] = 'You can manage your assigned classes and view grades.';
+    } else {
+        $data['extraInfo'] = 'You can view your subjects, assignments, and grades.';
+    }
+
+    // ✅ 4. Send all data to your unified dashboard view
+    echo view('templates/header', $data);
+    echo view('auth/dashboard', $data);
+    echo view('templates/footer');
+}
+
 }
