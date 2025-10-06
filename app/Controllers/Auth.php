@@ -96,16 +96,13 @@ class Auth extends BaseController
 
     public function dashboard()
 {
-    // ✅ 1. Check if user is logged in
     if (!session()->get('isLoggedIn')) {
         return redirect()->to(base_url('login'));
     }
 
-    // ✅ 2. Get user info from session
     $name = session()->get('name');
     $role = session()->get('role');
 
-    // ✅ 3. Prepare role-specific data
     $userModel = new UserModel();
     $data = [
         'name' => $name,
@@ -114,7 +111,6 @@ class Auth extends BaseController
         'extraInfo' => ''
     ];
 
-    // Simple example: you can adjust this later for real data
     if ($role == 'admin') {
         $data['totalUsers'] = count($userModel->findAll());
         $data['extraInfo'] = 'You have access to manage all users.';
@@ -124,10 +120,8 @@ class Auth extends BaseController
         $data['extraInfo'] = 'You can view your subjects, assignments, and grades.';
     }
 
-    // ✅ 4. Send all data to your unified dashboard view
-    echo view('templates/header', $data);
+    
     echo view('auth/dashboard', $data);
-    echo view('templates/footer');
 }
 
 }
