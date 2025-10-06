@@ -39,7 +39,6 @@
             <li class="nav-item"><a class="nav-link text-white" href="#">Reports</a></li>
           <?php endif; ?>
 
-          <li class="nav-item"><span class="nav-link text-white">Hello, <?= session()->get('name') ?></span></li>
           <li class="nav-item"><a class="nav-link text-white" href="<?= base_url('logout') ?>">Logout</a></li>
 
         <?php else: ?>
