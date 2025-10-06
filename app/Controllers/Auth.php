@@ -122,7 +122,6 @@ class Auth extends BaseController
 
     
     echo view('auth/dashboard', $data);
-    echo view('templates/footer');
 }
 
 }
