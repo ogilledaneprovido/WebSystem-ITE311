@@ -120,8 +120,9 @@ class Auth extends BaseController
         $data['extraInfo'] = 'You can view your subjects, assignments, and grades.';
     }
 
-    
+    echo view('templates/header', $data);
     echo view('auth/dashboard', $data);
+    echo view('templates/footer');
 }
 
 }
