@@ -35,6 +35,11 @@
         <div class="alert alert-success mt-3">
             <h4>Student Dashboard</h4>
             <p>You can view your enrolled subjects, assignments, and grades here.</p>
+            <?php if ($role == 'student'): ?>
+    <p>Welcome, <?= $name ?>! You can view your subjects, assignments, and grades.</p>
+    <a href="<?= base_url('student/dashboard') ?>" class="btn btn-primary">Go to Courses</a>
+<?php endif; ?>
+
         </div>
 
     <?php elseif (session()->get('role') == 'newrole'): ?> 

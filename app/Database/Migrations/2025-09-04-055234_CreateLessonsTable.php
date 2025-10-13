@@ -8,6 +8,13 @@ class CreateLessonsTable extends Migration
 {
     public function up()
     {
+         // ✅ Connect to the database
+        $db = \Config\Database::connect();
+
+        // ✅ Check if the table already exists
+        if ($db->tableExists('lessons')) {
+            return; // Skip if already exists
+        }
         $this->forge->addField([
             'id' => [
                 'type'           => 'INT',
