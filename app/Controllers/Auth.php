@@ -95,34 +95,44 @@ class Auth extends BaseController
     }
 
     public function dashboard()
-{
-    if (!session()->get('isLoggedIn')) {
-        return redirect()->to(base_url('login'));
+    {
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to(base_url('login'));
+        }
+
+        $name = session()->get('name');
+        $role = session()->get('role');
+
+        // Redirect admins to proper admin dashboard
+        if ($role === 'admin') {
+            return redirect()->to(base_url('/admin/dashboard'));
+        } elseif ($role === 'teacher') {
+            // Redirect to teacher dashboard if you have one
+            return redirect()->to(base_url('/teacher/dashboard'));
+        } else {
+            // Redirect students to student dashboard
+            return redirect()->to(base_url('/student/dashboard'));
+        }
+
+        // Fallback - this should not be reached
+        $userModel = new UserModel();
+        $data = [
+            'name' => $name,
+            'role' => $role,
+            'totalUsers' => 0,
+            'extraInfo' => ''
+        ];
+
+        if ($role == 'admin') {
+            $data['totalUsers'] = count($userModel->findAll());
+            $data['extraInfo'] = 'You have access to manage all users.';
+        } elseif ($role == 'teacher') {
+            $data['extraInfo'] = 'You can manage your assigned classes and view grades.';
+        } else {
+            $data['extraInfo'] = 'You can view your subjects, assignments, and grades.';
+        }
+
+        echo view('auth/dashboard', $data);
     }
-
-    $name = session()->get('name');
-    $role = session()->get('role');
-
-    $userModel = new UserModel();
-    $data = [
-        'name' => $name,
-        'role' => $role,
-        'totalUsers' => 0,
-        'extraInfo' => ''
-    ];
-
-    if ($role == 'admin') {
-        $data['totalUsers'] = count($userModel->findAll());
-        $data['extraInfo'] = 'You have access to manage all users.';
-    } elseif ($role == 'teacher') {
-        $data['extraInfo'] = 'You can manage your assigned classes and view grades.';
-    } else {
-        $data['extraInfo'] = 'You can view your subjects, assignments, and grades.';
-    }
-
-    echo view('templates/header', $data);
-    echo view('auth/dashboard', $data);
-    echo view('templates/footer');
-}
 
 }

@@ -7,30 +7,60 @@
 </head>
 <body class="bg-light p-4">
 
-<div class="container">
-  <h2 class="mb-4">Available Courses</h2>
+<?= view('templates/header') ?>
 
-  <?php if (!empty($courses)): ?>
-    <div class="row">
-      <?php foreach ($courses as $course): ?>
+<div class="container mt-4">
+    <h2>Student Dashboard</h2>
+    <p>Welcome, <?= esc(session()->get('name')) ?>!</p>
+    
+    <!-- Student Stats -->
+    <div class="row mb-4">
         <div class="col-md-4">
-          <div class="card mb-3">
-            <div class="card-body">
-              <h5 class="card-title"><?= esc($course['title']) ?></h5>
-              <p class="card-text"><?= esc($course['description']) ?></p>
-              <form method="post" action="<?= base_url('course/enroll') ?>">
-                <input type="hidden" name="course_id" value="<?= $course['id'] ?>">
-                <button type="submit" class="btn btn-primary">Enroll</button>
-              </form>
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h4><?= $total_enrollments ?></h4>
+                    <p>Enrolled Courses</p>
+                </div>
             </div>
-          </div>
         </div>
-      <?php endforeach; ?>
     </div>
-  <?php else: ?>
-    <p>No available courses.</p>
-  <?php endif; ?>
+
+    <!-- Enrolled Courses -->
+    <div class="card">
+        <div class="card-header d-flex justify-content-between">
+            <h5>My Courses</h5>
+            <a href="<?= base_url('/courses') ?>" class="btn btn-primary">Browse Courses</a>
+        </div>
+        <div class="card-body">
+            <?php if (empty($enrolled_courses)): ?>
+                <p class="text-muted">You are not enrolled in any courses yet.</p>
+                <a href="<?= base_url('/courses') ?>" class="btn btn-primary">Browse Available Courses</a>
+            <?php else: ?>
+                <div class="row">
+                    <?php foreach ($enrolled_courses as $course): ?>
+                        <div class="col-md-6 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= esc($course['title']) ?></h5>
+                                    <p class="card-text"><?= esc($course['description']) ?></p>
+                                    <p class="text-muted">
+                                        <i class="fas fa-file"></i> 
+                                        <?= $course['materials_count'] ?> Materials Available
+                                    </p>
+                                    <a href="<?= base_url('/course/' . $course['id'] . '/materials') ?>" class="btn btn-success">
+                                        View Materials
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
+
+<?= view('templates/footer') ?>
 
 </body>
 </html>

@@ -5,5 +5,16 @@ class CourseModel extends Model
 {
     protected $table = 'courses';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['title','description','teacher_id','created_at','updated_at'];
+    protected $allowedFields = ['title', 'description', 'created_at'];
+    protected $useTimestamps = false;
+
+    public function getAllCourses()
+    {
+        return $this->findAll();
+    }
+
+    public function getCourseById($id)
+    {
+        return $this->find($id);
+    }
 }

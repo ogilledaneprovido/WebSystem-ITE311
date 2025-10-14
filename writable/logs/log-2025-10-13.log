@@ -1,0 +1,231 @@
+ERROR - 2025-10-13 14:43:23 --> mysqli_sql_exception: Table 'lms_provido.migrations' doesn't exist in engine in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(175): CodeIgniter\Database\MigrationRunner->getHistory('')
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-10-13 14:46:50 --> mysqli_sql_exception: Table 'lms_provido.migrations' doesn't exist in engine in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run(Array)
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', Array)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#10 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#11 {main}
+CRITICAL - 2025-10-13 14:46:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_provido.migrations' doesn't exist in engine
+[Method: CLI, Route: migrate:status]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `migrations`
+WHERE `namespace` = :namespace:
+ORDER BY `id` ASC', [...], false)
+ 2 SYSTEMPATH\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+ 4 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run([])
+ 5 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', [])
+ 6 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 7 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+ 8 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2025-10-13 14:46:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_provido.migrations' doesn't exist in engine
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `migrations`
+WHERE `namespace` = \'App\'
+ORDER BY `id` ASC')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `migrations`
+WHERE `namespace` = \'App\'
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `migrations`
+WHERE `namespace` = :namespace:
+ORDER BY `id` ASC', [...], false)
+ 4 SYSTEMPATH\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+ 6 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run([])
+ 7 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', [])
+ 8 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+ 9 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+10 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2025-10-13 14:46:50 --> [Caused by] mysqli_sql_exception: Table 'lms_provido.migrations' doesn't exist in engine
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *
+FROM `migrations`
+WHERE `namespace` = \'App\'
+ORDER BY `id` ASC', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *
+FROM `migrations`
+WHERE `namespace` = \'App\'
+ORDER BY `id` ASC')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *
+FROM `migrations`
+WHERE `namespace` = \'App\'
+ORDER BY `id` ASC')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `migrations`
+WHERE `namespace` = :namespace:
+ORDER BY `id` ASC', [...], false)
+ 5 SYSTEMPATH\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\Commands\Database\MigrateStatus.php(115): CodeIgniter\Database\MigrationRunner->getHistory('')
+ 7 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateStatus->run([])
+ 8 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:status', [])
+ 9 SYSTEMPATH\Boot.php(388): CodeIgniter\CLI\Console->run()
+10 SYSTEMPATH\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+11 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+ERROR - 2025-10-13 14:47:52 --> mysqli_sql_exception: Table 'lms_provido.migrations' doesn't exist in engine in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(175): CodeIgniter\Database\MigrationRunner->getHistory('')
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-10-13 14:53:51 --> mysqli_sql_exception: Unknown column 'group' in 'field list' in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `mi...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `mi...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `mi...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `mi...', Array, false)
+#4 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(599): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(189): CodeIgniter\Database\MigrationRunner->addHistory(Object(stdClass), 1)
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-10-13 14:55:02 --> mysqli_sql_exception: Table 'submissions' already exists in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `s...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `s...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `s...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `s...')
+#4 C:\xampp\htdocs\ITE311-PROVIDO\app\Database\Migrations\2025-09-04-055237_CreateSubmissionsTable.php(40): CodeIgniter\Database\Forge->createTable('submissions')
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateSubmissionsTable->up()
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-13 14:56:02 --> mysqli_sql_exception: Tablespace for table '`lms_provido`.`users`' exists. Please DISCARD the tablespace before IMPORT in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `u...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 C:\xampp\htdocs\ITE311-PROVIDO\app\Database\Migrations\2025-09-04-055231_CreateUsersTable.php(22): CodeIgniter\Database\Forge->createTable('users')
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateUsersTable->up()
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#14 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-10-13 14:58:01 --> mysqli_sql_exception: Tablespace for table '`lms_provido`.`courses`' exists. Please DISCARD the tablespace before IMPORT in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `c...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `c...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `c...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `c...')
+#4 C:\xampp\htdocs\ITE311-PROVIDO\app\Database\Migrations\2025-09-04-055232_CreateCoursesTable.php(23): CodeIgniter\Database\Forge->createTable('courses')
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateCoursesTable->up()
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#14 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+CRITICAL - 2025-10-13 14:59:49 --> ErrorException: Cannot declare class App\Database\Migrations\CreateEnrollmentsTable, because the name is already in use
+[Method: CLI, Route: migrate]
+in APPPATH\Database\Migrations\2025-10-07-115511_CreateEnrollmentsTable.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+ERROR - 2025-10-13 15:02:00 --> mysqli_sql_exception: Can't create table `lms_provido`.`materials` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\ITE311-PROVIDO\app\Database\Migrations\2025-10-13-144238_CreateMaterialsTable.php(34): CodeIgniter\Database\Forge->createTable('materials')
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMaterialsTable->up()
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#14 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-10-13 15:02:14 --> mysqli_sql_exception: Can't create table `lms_provido`.`materials` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\ITE311-PROVIDO\app\Database\Migrations\2025-10-13-144238_CreateMaterialsTable.php(34): CodeIgniter\Database\Forge->createTable('materials')
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMaterialsTable->up()
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#11 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-10-13 15:05:28 --> mysqli_sql_exception: Can't create table `lms_provido`.`materials` (errno: 150 "Foreign key constraint is incorrectly formed") in C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `m...', 0)
+#1 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `m...')
+#2 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `m...')
+#3 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `m...')
+#4 C:\xampp\htdocs\ITE311-PROVIDO\app\Database\Migrations\2025-10-13-144238_CreateMaterialsTable.php(35): CodeIgniter\Database\Forge->createTable('materials')
+#5 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateMaterialsTable->up()
+#6 C:\xampp\htdocs\ITE311-PROVIDO\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-PROVIDO\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\ITE311-PROVIDO\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#14 C:\xampp\htdocs\ITE311-PROVIDO\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\xampp\htdocs\ITE311-PROVIDO\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
