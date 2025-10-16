@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Dashboard</title>
+    <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .custom-navbar {
@@ -33,12 +33,12 @@
     <!-- Uniform Navbar -->
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid px-4">
-            <a class="navbar-brand" href="<?= base_url('teacher/dashboard') ?>">ITE311</a>
+            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">ITE311</a>
             
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="<?= base_url('teacher/dashboard') ?>">Dashboard</a>
-                <a class="nav-link" href="<?= base_url('teacher/courses') ?>">My Courses</a>
-                <a class="nav-link" href="<?= base_url('teacher/materials') ?>">Materials</a>
+                <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
+                <a class="nav-link" href="<?= base_url('admin/users') ?>">Manage Users</a>
+                <a class="nav-link" href="<?= base_url('admin/courses') ?>">Manage Courses</a>
                 <a class="nav-link" href="<?= base_url('logout') ?>">Logout</a>
             </div>
         </div>
@@ -49,7 +49,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h1 class="card-title">Welcome, Teacher!</h1>
+                        <h1 class="card-title">Welcome, Admin!</h1>
                         <p class="card-text">You are logged in as: <?= esc(session()->get('username')) ?></p>
                         <p class="card-text">Your role: <?= esc(session()->get('role')) ?></p>
                         <a href="<?= base_url('logout') ?>" class="btn btn-danger">Logout</a>

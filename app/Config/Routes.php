@@ -32,3 +32,7 @@ $routes->get('/materials/(:num)/edit', 'Materials::edit/$1');
 
 // Announcements route - accessible to all logged-in users
 $routes->get('/announcements', 'Announcement::index');
+
+// Role-specific dashboard routes
+$routes->get('teacher/dashboard', 'Teacher::dashboard');
+$routes->get('admin/dashboard', 'Admin::dashboard');
