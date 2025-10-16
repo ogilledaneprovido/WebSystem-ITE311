@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\AnnouncementModel;
+
 class Announcement extends BaseController
 {
     public function index()
@@ -12,9 +14,9 @@ class Announcement extends BaseController
         }
 
         try {
-            // For now, we'll use an empty array since the table will be created in Task 2
-            // Later this will be replaced with: $model = new AnnouncementModel(); $announcements = $model->orderBy('created_at', 'DESC')->findAll();
-            $announcements = [];
+            $model = new AnnouncementModel();
+            // Fetch all announcements ordered by created_at in descending order (newest first)
+            $announcements = $model->orderBy('created_at', 'DESC')->findAll();
 
             $data = [
                 'title' => 'Announcements',
