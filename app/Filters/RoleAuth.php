@@ -12,7 +12,7 @@ class RoleAuth implements FilterInterface
     {
         $session = session();
         
-    
+        // Check if user is logged in
         if (!$session->get('isLoggedIn')) {
             return redirect()->to('/login')->with('error', 'Please log in to access this page.');
         }
@@ -20,11 +20,11 @@ class RoleAuth implements FilterInterface
         $userRole = $session->get('role');
         $currentPath = $request->getUri()->getPath();
         
-    
+        // Define role-based access rules
         $accessRules = [
             'admin' => [
                 'allowed_patterns' => ['/admin'],
-                'can_access_all' => true
+                'can_access_all' => true // Admin can access any route
             ],
             'teacher' => [
                 'allowed_patterns' => ['/teacher'],
