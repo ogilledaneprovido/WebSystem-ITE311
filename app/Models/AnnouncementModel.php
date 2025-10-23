@@ -8,15 +8,10 @@ class AnnouncementModel extends Model
 {
     protected $table = 'announcements';
     protected $primaryKey = 'id';
-    protected $useAutoIncrement = true;
-    protected $returnType = 'array';
-    protected $useSoftDeletes = false;
-    protected $protectFields = true;
     protected $allowedFields = ['title', 'content', 'created_at'];
-
-    // Dates
     protected $useTimestamps = false;
     protected $dateFormat = 'datetime';
+    protected $createdField = 'created_at';
 
     // Validation
     protected $validationRules = [

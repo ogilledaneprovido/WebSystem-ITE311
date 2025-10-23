@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\AnnouncementModel;
+use CodeIgniter\Controller;
 
-class Auth extends BaseController
+class Auth extends Controller
 {
     public function register()
     {
@@ -14,7 +16,7 @@ class Auth extends BaseController
 
         if ($this->request->getMethod() === 'post' || $this->request->getMethod() === 'POST' || $_SERVER['REQUEST_METHOD'] === 'POST') {
             $rules = [
-                'name' => 'required|min_length[3]',
+                'name' => 'required|min_length[3]|alpha_space',
                 'email' => 'required|valid_email|is_unique[users.email]',
                 'password' => 'required|min_length[6]',
                 'password_confirm' => 'matches[password]',
@@ -59,7 +61,7 @@ class Auth extends BaseController
         $session = session();
         
         if ($this->request->getMethod() === 'post' || $this->request->getMethod() === 'POST' || $_SERVER['REQUEST_METHOD'] === 'POST') {
-            $model = new \App\Models\UserModel();
+            $model = new UserModel();
             $email = $this->request->getVar('email');
             $password = $this->request->getVar('password');
             
@@ -71,25 +73,26 @@ class Auth extends BaseController
             $user = $model->where('email', $email)->first();
 
             if ($user && password_verify($password, $user['password'])) {
-                $session->set([
-                    'isLoggedIn' => true,
-                    'user_id'    => $user['id'],
-                    'username'   => $user['name'],
-                    'email'      => $user['email'],
-                    'role'       => $user['role']
-                ]);
+                $sessionData = [
+                    'id' => $user['id'],
+                    'name' => $user['name'],
+                    'email' => $user['email'],
+                    'role' => $user['role'],
+                    'isLoggedIn' => true
+                ];
+                session()->set($sessionData);
 
-                // Enhanced role-based redirection
-                if ($user['role'] === 'student') {
-                    return redirect()->to(base_url('announcements'));
-                } elseif ($user['role'] === 'teacher') {
-                    return redirect()->to(base_url('teacher/dashboard'));
-                } elseif ($user['role'] === 'admin') {
-                    return redirect()->to(base_url('admin/dashboard'));
+                // Redirect based on role
+                switch ($user['role']) {
+                    case 'admin':
+                        return redirect()->to('/admin/dashboard');
+                    case 'teacher':
+                        return redirect()->to('/teacher/dashboard');
+                    case 'student':
+                        return redirect()->to('/student/dashboard');
+                    default:
+                        return redirect()->to('/dashboard');
                 }
-                
-                // Fallback
-                return redirect()->to(base_url('dashboard'));
             } else {
                 $session->setFlashdata('error', 'Invalid login credentials.');
                 return view('auth/login');
@@ -108,42 +111,25 @@ class Auth extends BaseController
     public function dashboard()
     {
         if (!session()->get('isLoggedIn')) {
-            return redirect()->to(base_url('login'));
+            return redirect()->to('/login');
         }
 
-        $name = session()->get('name');
         $role = session()->get('role');
 
-        // Redirect admins to proper admin dashboard
-        if ($role === 'admin') {
-            return redirect()->to(base_url('/admin/dashboard'));
-        } elseif ($role === 'teacher') {
-            // Redirect to teacher dashboard if you have one
-            return redirect()->to(base_url('/teacher/dashboard'));
-        } else {
-            // Redirect students to student dashboard
-            return redirect()->to(base_url('/student/dashboard'));
+        // Redirect based on role
+        switch ($role) {
+            case 'admin':
+                return redirect()->to('/admin/dashboard');
+            case 'teacher':
+                return redirect()->to('/teacher/dashboard');
+            case 'student':
+                return redirect()->to('/student/dashboard');
+            default:
+                // If no specific dashboard, show general dashboard
+                $announcementModel = new AnnouncementModel();
+                $data['announcements'] = $announcementModel->orderBy('created_at', 'DESC')->findAll(3);
+                return view('auth/dashboard', $data);
         }
-
-        // Fallback - this should not be reached
-        $userModel = new UserModel();
-        $data = [
-            'name' => $name,
-            'role' => $role,
-            'totalUsers' => 0,
-            'extraInfo' => ''
-        ];
-
-        if ($role == 'admin') {
-            $data['totalUsers'] = count($userModel->findAll());
-            $data['extraInfo'] = 'You have access to manage all users.';
-        } elseif ($role == 'teacher') {
-            $data['extraInfo'] = 'You can manage your assigned classes and view grades.';
-        } else {
-            $data['extraInfo'] = 'You can view your subjects, assignments, and grades.';
-        }
-
-        echo view('auth/dashboard', $data);
     }
 
 }

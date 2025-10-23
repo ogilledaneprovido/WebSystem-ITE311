@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Student Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .custom-navbar {
@@ -75,13 +75,15 @@
     <!-- Uniform Navbar -->
     <nav class="navbar navbar-expand-lg custom-navbar">
         <div class="container-fluid px-4">
-            <a class="navbar-brand" href="<?= base_url('admin/dashboard') ?>">ITE311</a>
+            <a class="navbar-brand" href="<?= base_url('student/dashboard') ?>">ITE311</a>
             
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="<?= base_url('admin/dashboard') ?>">Dashboard</a>
-                <a class="nav-link" href="<?= base_url('admin/users') ?>">Manage Users</a>
-                <a class="nav-link" href="<?= base_url('admin/courses') ?>">Manage Courses</a>
-                <a class="nav-link" href="<?= base_url('admin/announcements') ?>">Announcements</a>
+                <a class="nav-link" href="<?= base_url('student/dashboard') ?>">Dashboard</a>
+                <a class="nav-link" href="<?= base_url('courses') ?>">My Courses</a>
+                <a class="nav-link" href="<?= base_url('student/available-courses') ?>">Available Courses</a>
+                <a class="nav-link" href="<?= base_url('student/assignments') ?>">Assignments</a>
+                <a class="nav-link" href="<?= base_url('student/grades') ?>">Grades</a>
+                <a class="nav-link" href="<?= base_url('announcements') ?>">Announcements</a>
                 
                 <!-- Notification Dropdown -->
                 <div class="nav-item dropdown">
@@ -107,66 +109,25 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">Welcome, Admin!</h1>
+                        <h1 class="card-title">Welcome, Student!</h1>
                         <p class="card-text mb-1">You are logged in as: <strong><?= esc(session()->get('name')) ?></strong></p>
                         <p class="card-text">Your role: <strong><?= esc(session()->get('role')) ?></strong></p>
+                        <p class="card-text">Total Enrolled Courses: <strong><?= isset($total_enrolled) ? $total_enrolled : 0 ?></strong></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Admin Management Cards -->
+        <!-- Student Management Cards -->
         <div class="row g-4">
-            <!-- System Statistics -->
-            <div class="col-md-3">
-                <div class="card dashboard-card border-primary h-100">
-                    <div class="card-body text-center">
-                        <h3 class="text-primary">�</h3>
-                        <h2 class="text-primary mb-2"><?= $total_courses ?></h2>
-                        <h6 class="card-title mb-3">Total Courses</h6>
-                        <a href="<?= base_url('admin/courses') ?>" class="btn btn-primary btn-sm w-100">Manage Courses</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card dashboard-card border-success h-100">
-                    <div class="card-body text-center">
-                        <h3 class="text-success">�‍🎓</h3>
-                        <h2 class="text-success mb-2"><?= $total_students ?></h2>
-                        <h6 class="card-title mb-3">Total Students</h6>
-                        <a href="<?= base_url('admin/users') ?>" class="btn btn-success btn-sm w-100">View Students</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card dashboard-card border-info h-100">
-                    <div class="card-body text-center">
-                        <h3 class="text-info">👨‍🏫</h3>
-                        <h2 class="text-info mb-2"><?= $total_teachers ?></h2>
-                        <h6 class="card-title mb-3">Total Teachers</h6>
-                        <a href="<?= base_url('admin/users') ?>" class="btn btn-info btn-sm w-100">View Teachers</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="card dashboard-card border-warning h-100">
-                    <div class="card-body text-center">
-                        <h3 class="text-warning">�</h3>
-                        <h2 class="text-warning mb-2"><?= $total_materials ?></h2>
-                        <h6 class="card-title mb-3">Course Materials</h6>
-                        <a href="<?= base_url('admin/courses') ?>" class="btn btn-warning btn-sm w-100">View Materials</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Courses -->
+            <!-- My Courses Card with Recent Activity -->
             <div class="col-md-6">
                 <div class="card dashboard-card border-primary h-100">
                     <div class="card-body">
-                        <h5 class="card-title mb-3">📚 Recent Courses</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">📚 My Courses</h5>
+                            <span class="badge bg-primary"><?= $total_enrolled ?> Enrolled</span>
+                        </div>
                         <?php if (!empty($recent_courses)): ?>
                             <div class="list-group list-group-flush">
                                 <?php foreach ($recent_courses as $course): ?>
@@ -174,72 +135,95 @@
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div>
                                                 <h6 class="mb-1"><?= esc($course['title']) ?></h6>
-                                                <small class="text-muted">Created: <?= date('M d, Y', strtotime($course['created_at'])) ?></small>
+                                                <small class="text-muted">Enrolled: <?= date('M d, Y', strtotime($course['enrolled_date'])) ?></small>
                                             </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <a href="<?= base_url('admin/courses') ?>" class="btn btn-primary btn-sm mt-3 w-100">View All Courses</a>
+                            <a href="<?= base_url('courses') ?>" class="btn btn-primary btn-sm mt-3 w-100">View All Courses</a>
                         <?php else: ?>
-                            <p class="text-muted text-center py-3">No courses available</p>
+                            <p class="text-muted text-center py-3">No courses enrolled yet</p>
+                            <a href="<?= base_url('student/available-courses') ?>" class="btn btn-primary btn-sm w-100">Browse Courses</a>
                         <?php endif; ?>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Students -->
+            <!-- Available Courses Card with Count -->
             <div class="col-md-6">
                 <div class="card dashboard-card border-success h-100">
                     <div class="card-body">
-                        <h5 class="card-title mb-3">👨‍🎓 Recent Students</h5>
-                        <?php if (!empty($recent_students)): ?>
-                            <div class="list-group list-group-flush">
-                                <?php foreach ($recent_students as $student): ?>
-                                    <div class="list-group-item px-0">
-                                        <div class="d-flex justify-content-between align-items-start">
-                                            <div>
-                                                <h6 class="mb-1"><?= esc($student['name']) ?></h6>
-                                                <small class="text-muted"><?= esc($student['email']) ?></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-                            <a href="<?= base_url('admin/users') ?>" class="btn btn-success btn-sm mt-3 w-100">View All Users</a>
-                        <?php else: ?>
-                            <p class="text-muted text-center py-3">No recent students</p>
-                        <?php endif; ?>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">🔍 Available Courses</h5>
+                            <span class="badge bg-success"><?= $available_courses_count ?> Available</span>
+                        </div>
+                        <div class="text-center py-4">
+                            <h2 class="text-success mb-3"><?= $available_courses_count ?></h2>
+                            <p class="text-muted mb-3">New courses waiting for you to explore</p>
+                            <a href="<?= base_url('student/available-courses') ?>" class="btn btn-success btn-sm w-100">Browse & Enroll</a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Announcements -->
-            <div class="col-md-12">
+            <!-- Assignments Card with Pending Count -->
+            <div class="col-md-4">
                 <div class="card dashboard-card border-warning h-100">
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <h5 class="card-title mb-0">📢 Recent Announcements</h5>
-                            <a href="<?= base_url('admin/announcements/create') ?>" class="btn btn-sm btn-warning">Create New</a>
+                            <h5 class="card-title mb-0">✏️ Assignments</h5>
+                            <?php if ($pending_assignments > 0): ?>
+                                <span class="badge bg-warning text-dark"><?= $pending_assignments ?> Pending</span>
+                            <?php endif; ?>
                         </div>
+                        <div class="text-center py-3">
+                            <h2 class="text-warning mb-2"><?= $pending_assignments ?></h2>
+                            <p class="text-muted mb-3">Pending assignments</p>
+                            <a href="<?= base_url('student/assignments') ?>" class="btn btn-warning btn-sm w-100">View Assignments</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grades Card with Latest Grade -->
+            <div class="col-md-4">
+                <div class="card dashboard-card border-info h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">📊 My Grades</h5>
+                        <div class="text-center py-3">
+                            <?php if ($latest_grade): ?>
+                                <h2 class="text-info mb-2"><?= esc($latest_grade['grade']) ?></h2>
+                                <p class="text-muted mb-2">Latest Grade</p>
+                                <small class="text-muted"><?= esc($latest_grade['course_name']) ?></small>
+                            <?php else: ?>
+                                <h3 class="text-muted mb-2">--</h3>
+                                <p class="text-muted mb-2">No grades yet</p>
+                            <?php endif; ?>
+                            <a href="<?= base_url('student/grades') ?>" class="btn btn-info btn-sm w-100 mt-3">View All Grades</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Announcements Card with Recent -->
+            <div class="col-md-4">
+                <div class="card dashboard-card border-secondary h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">� Announcements</h5>
                         <?php if (!empty($recent_announcements)): ?>
-                            <div class="row">
-                                <?php foreach ($recent_announcements as $announcement): ?>
-                                    <div class="col-md-4">
-                                        <div class="card mb-3">
-                                            <div class="card-body">
-                                                <h6 class="card-title"><?= esc($announcement['title']) ?></h6>
-                                                <p class="card-text text-muted small"><?= substr(esc($announcement['content']), 0, 100) ?>...</p>
-                                                <small class="text-muted"><?= date('M d, Y', strtotime($announcement['created_at'])) ?></small>
-                                            </div>
-                                        </div>
+                            <div class="mb-3">
+                                <?php foreach (array_slice($recent_announcements, 0, 2) as $announcement): ?>
+                                    <div class="mb-2">
+                                        <h6 class="mb-1" style="font-size: 0.9rem;"><?= esc($announcement['title']) ?></h6>
+                                        <small class="text-muted"><?= date('M d', strtotime($announcement['created_at'])) ?></small>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
-                            <a href="<?= base_url('admin/announcements') ?>" class="btn btn-warning btn-sm w-100">Manage All Announcements</a>
+                            <a href="<?= base_url('announcements') ?>" class="btn btn-secondary btn-sm w-100">View All</a>
                         <?php else: ?>
-                            <p class="text-muted text-center py-3">No announcements yet</p>
-                            <a href="<?= base_url('admin/announcements/create') ?>" class="btn btn-warning btn-sm w-100">Create First Announcement</a>
+                            <p class="text-muted text-center py-3">No announcements</p>
+                            <a href="<?= base_url('announcements') ?>" class="btn btn-secondary btn-sm w-100">View Announcements</a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -251,25 +235,18 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Load notifications on page load
             loadNotifications();
-
-            // Refresh notifications every 30 seconds
             setInterval(loadNotifications, 30000);
 
-            // Load notifications function
             function loadNotifications() {
                 $.get('<?= base_url('notifications') ?>', function(response) {
                     if (response.success) {
                         updateNotificationBadge(response.unread_count);
                         updateNotificationList(response.notifications);
                     }
-                }).fail(function() {
-                    console.error('Failed to load notifications');
                 });
             }
 
-            // Update badge count
             function updateNotificationBadge(count) {
                 const badge = $('#notificationBadge');
                 if (count > 0) {
@@ -279,12 +256,9 @@
                 }
             }
 
-            // Update notification list
             function updateNotificationList(notifications) {
                 const list = $('#notificationList');
                 list.empty();
-                
-                // Add header
                 list.append('<li class="dropdown-header">Notifications</li>');
                 list.append('<li><hr class="dropdown-divider"></li>');
 
@@ -310,14 +284,11 @@
                         `;
                         list.append(notificationItem);
                     });
-
-                    // Add "View All" link
                     list.append('<li><hr class="dropdown-divider"></li>');
-                    list.append(`<li class="text-center p-2"><a href="<?= base_url('admin/notifications') ?>" class="text-decoration-none">View All Notifications</a></li>`);
+                    list.append(`<li class="text-center p-2"><a href="<?= base_url('student/notifications') ?>" class="text-decoration-none">View All Notifications</a></li>`);
                 }
             }
 
-            // Mark notification as read
             $(document).on('click', '.mark-read', function(e) {
                 e.stopPropagation();
                 const notificationId = $(this).data('id');
@@ -327,14 +298,11 @@
                     if (response.success) {
                         notificationItem.removeClass('unread');
                         $(e.target).remove();
-                        loadNotifications(); // Reload to update badge count
+                        loadNotifications();
                     }
-                }).fail(function() {
-                    alert('Failed to mark notification as read');
                 });
             });
 
-            // Format date
             function formatDate(dateString) {
                 const date = new Date(dateString);
                 const now = new Date();

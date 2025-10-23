@@ -20,46 +20,52 @@ class RoleAuth implements FilterInterface
         $userRole = $session->get('role');
         $currentPath = $request->getUri()->getPath();
         
-        // Define role-based access rules
-        $accessRules = [
-            'admin' => [
-                'allowed_patterns' => ['/admin'],
-                'can_access_all' => true // Admin can access any route
-            ],
-            'teacher' => [
-                'allowed_patterns' => ['/teacher'],
-                'can_access_all' => false
-            ],
-            'student' => [
-                'allowed_patterns' => ['/student', '/announcements'],
-                'can_access_all' => false
-            ]
-        ];
+        // Normalize path - remove trailing slash and ensure it starts with /
+        $currentPath = '/' . trim($currentPath, '/');
         
-        // Check if user role exists in our rules
-        if (!isset($accessRules[$userRole])) {
-            return redirect()->to('/announcements')->with('error', 'Access Denied: Invalid user role.');
+        // Check access based on role and path
+        // Admin can access everything except student/teacher dashboards
+        if ($userRole === 'admin') {
+            // Admin should only access admin routes
+            if (strpos($currentPath, '/student') === 0) {
+                return redirect()->to('/admin/dashboard')->with('error', 'Access Denied: Admins cannot access student routes.');
+            }
+            if (strpos($currentPath, '/teacher') === 0) {
+                return redirect()->to('/admin/dashboard')->with('error', 'Access Denied: Admins cannot access teacher routes.');
+            }
+            return; // Admin can access admin routes
         }
         
-        $userRules = $accessRules[$userRole];
-        
-        // Admin can access everything
-        if ($userRules['can_access_all']) {
+        // Teacher can only access teacher routes
+        if ($userRole === 'teacher') {
+            if (strpos($currentPath, '/teacher') === 0) {
+                return; // Allow access to teacher routes
+            }
+            // Deny access to admin and student routes
+            if (strpos($currentPath, '/admin') === 0) {
+                return redirect()->to('/teacher/dashboard')->with('error', 'Access Denied: Teachers cannot access admin routes.');
+            }
+            if (strpos($currentPath, '/student') === 0) {
+                return redirect()->to('/teacher/dashboard')->with('error', 'Access Denied: Teachers cannot access student routes.');
+            }
+            // If not a protected route, allow access (e.g., announcements, notifications)
             return;
         }
         
-        // Check if current path matches allowed patterns for the user's role
-        $hasAccess = false;
-        foreach ($userRules['allowed_patterns'] as $pattern) {
-            if (strpos($currentPath, $pattern) === 0) {
-                $hasAccess = true;
-                break;
+        // Student can only access student routes
+        if ($userRole === 'student') {
+            if (strpos($currentPath, '/student') === 0) {
+                return; // Allow access to student routes
             }
-        }
-        
-        // If access is denied, redirect with error message
-        if (!$hasAccess) {
-            return redirect()->to('/announcements')->with('error', 'Access Denied: Insufficient Permissions');
+            // Deny access to admin and teacher routes
+            if (strpos($currentPath, '/admin') === 0) {
+                return redirect()->to('/student/dashboard')->with('error', 'Access Denied: Students cannot access admin routes.');
+            }
+            if (strpos($currentPath, '/teacher') === 0) {
+                return redirect()->to('/student/dashboard')->with('error', 'Access Denied: Students cannot access teacher routes.');
+            }
+            // If not a protected route, allow access (e.g., announcements, notifications)
+            return;
         }
     }
 
