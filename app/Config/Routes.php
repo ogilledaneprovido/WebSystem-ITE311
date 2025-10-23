@@ -53,8 +53,12 @@ $routes->group('teacher', function($routes) {
     $routes->get('dashboard', 'Teacher::dashboard');
     $routes->get('courses', 'Teacher\Course::index');
     $routes->get('materials', 'Teacher\Material::index');
+    $routes->get('materials/upload', 'Teacher\Material::upload');
+    $routes->post('materials/upload', 'Teacher\Material::upload');
     $routes->get('students', 'Teacher\Student::index');
     $routes->get('assignments', 'Teacher\Assignment::index');
+    $routes->get('assignments/create', 'Teacher\Assignment::create');
+    $routes->post('assignments/create', 'Teacher\Assignment::create');
     $routes->get('grades', 'Teacher\Grade::index');
     $routes->get('announcements', 'Teacher\Announcement::index');
     $routes->get('notifications', 'Notifications::index');

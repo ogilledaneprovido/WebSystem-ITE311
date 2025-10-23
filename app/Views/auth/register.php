@@ -143,11 +143,11 @@
             <?= csrf_field() ?>
             <div class="mb-3">
                 <label class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter your name" value="<?= old('name') ?>" required>
+                <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Enter your email" value="<?= old('email') ?>" required>
+                <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Password</label>

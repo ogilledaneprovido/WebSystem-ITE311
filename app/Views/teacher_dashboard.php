@@ -207,28 +207,22 @@
                     <div class="card-body">
                         <h5 class="card-title mb-3">⚡ Quick Actions</h5>
                         <div class="row g-3">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <a href="<?= base_url('teacher/assignments') ?>" class="btn btn-outline-primary w-100">
                                     <h5>✏️</h5>
                                     <small>Create Assignment</small>
                                 </a>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <a href="<?= base_url('teacher/materials') ?>" class="btn btn-outline-success w-100">
                                     <h5>📝</h5>
                                     <small>Upload Materials</small>
                                 </a>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <a href="<?= base_url('teacher/grades') ?>" class="btn btn-outline-info w-100">
                                     <h5>📊</h5>
                                     <small>Grade Students</small>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="<?= base_url('announcements') ?>" class="btn btn-outline-warning w-100">
-                                    <h5>📢</h5>
-                                    <small>Post Announcement</small>
                                 </a>
                             </div>
                         </div>
