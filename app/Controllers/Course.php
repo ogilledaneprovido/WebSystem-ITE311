@@ -158,4 +158,41 @@ class Course extends Controller
         
         return view('admin/course_view', $data);
     }
+
+    /**
+     * Search courses by title or description.
+     * Accepts GET or POST param 'term'.
+     * Returns JSON for AJAX requests or renders the courses index view for normal requests.
+     */
+    public function search()
+    {
+        $term = trim((string) ($this->request->getGet('term') ?? $this->request->getPost('term') ?? ''));
+
+        $model = new CourseModel();
+
+        if ($term === '') {
+            // if empty term, return recent courses (limit for performance)
+            $courses = $model->orderBy('created_at', 'DESC')->findAll(50);
+        } else {
+            // Case-insensitive search via like (DB collation controls sensitivity)
+            $courses = $model
+                ->groupStart()
+                    ->like('title', $term)
+                    ->orLike('description', $term)
+                ->groupEnd()
+                ->orderBy('created_at', 'DESC')
+                ->findAll(50);
+        }
+
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'success' => true,
+                'term' => $term,
+                'results' => $courses
+            ]);
+        }
+
+        // Regular request: render courses view (allow view to use $search_term)
+        return view('courses/index', ['courses' => $courses, 'search_term' => $term]);
+    }
 }

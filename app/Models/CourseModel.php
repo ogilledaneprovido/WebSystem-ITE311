@@ -5,8 +5,8 @@ class CourseModel extends Model
 {
     protected $table = 'courses';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['title', 'description', 'created_at'];
-    protected $useTimestamps = false;
+    protected $allowedFields = ['title', 'description', 'teacher_id', 'created_at', 'updated_at'];
+    protected $useTimestamps = true;
 
     public function getAllCourses()
     {

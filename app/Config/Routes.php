@@ -22,6 +22,7 @@ $routes->get('/materials/delete/(:num)', 'Materials::delete/$1');
 $routes->get('/materials/download/(:num)', 'Materials::download/$1');
 
 $routes->get('/courses', 'Course::index');
+$routes->match(['get', 'post'], 'courses/search', 'Course::search');
 $routes->get('/course/(:num)', 'Course::view/$1');
 $routes->get('/course/(:num)/materials', 'Materials::index/$1');
 $routes->get('/admin/dashboard', 'Admin::dashboard');

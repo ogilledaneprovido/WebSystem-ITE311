@@ -69,33 +69,35 @@ class Auth extends Controller
                 $session->setFlashdata('error', 'Please enter both email and password.');
                 return view('auth/login');
             }
-            
+
+            // Case-sensitive email comparison
             $user = $model->where('email', $email)->first();
 
-            if ($user && password_verify($password, $user['password'])) {
-                $sessionData = [
-                    'id' => $user['id'],
-                    'name' => $user['name'],
-                    'email' => $user['email'],
-                    'role' => $user['role'],
-                    'isLoggedIn' => true
-                ];
-                session()->set($sessionData);
-
-                // Redirect based on role
-                switch ($user['role']) {
-                    case 'admin':
-                        return redirect()->to('/admin/dashboard');
-                    case 'teacher':
-                        return redirect()->to('/teacher/dashboard');
-                    case 'student':
-                        return redirect()->to('/student/dashboard');
-                    default:
-                        return redirect()->to('/dashboard');
-                }
-            } else {
-                $session->setFlashdata('error', 'Invalid login credentials.');
+            // Unified error message for security
+            if (!$user || !password_verify($password, $user['password'])) {
+                $session->setFlashdata('error', 'Email or password is incorrect. Please check your input.');
                 return view('auth/login');
+            }
+
+            $sessionData = [
+                'id' => $user['id'],
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'role' => $user['role'],
+                'isLoggedIn' => true
+            ];
+            session()->set($sessionData);
+
+            // Redirect based on role
+            switch ($user['role']) {
+                case 'admin':
+                    return redirect()->to('/admin/dashboard');
+                case 'teacher':
+                    return redirect()->to('/teacher/dashboard');
+                case 'student':
+                    return redirect()->to('/student/dashboard');
+                default:
+                    return redirect()->to('/dashboard');
             }
         }
 
